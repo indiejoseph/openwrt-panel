@@ -1,0 +1,10 @@
+#!/bin/sh
+
+DIR="$(readlink -f ../db)"
+FILE="$DIR/settings2.json"
+
+echo "Content-type: text/html"
+echo ""
+read QUERY_STRING
+echo "$QUERY_STRING" > FILE
+echo "{'msg':'OK'}"
