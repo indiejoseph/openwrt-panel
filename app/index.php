@@ -1,3 +1,44 @@
+<?php
+// try 
+// {
+//     $db = new PDO("sqlite:db/buttons.sqlite");
+//     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+//     // Create table
+//     $query = 'CREATE TABLE IF NOT EXISTS buttons ' .
+//              '(id integer PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, value BLOB NOT NULL)';
+
+//     $db->exec($query);
+
+//     // Insert records
+//     $insert = "INSERT INTO buttons (name, value) 
+//                 VALUES (:name, :value)";
+
+//     $stmt = $db->prepare($insert);
+//     $stmt->bindParam(':name', $name);
+//     $stmt->bindParam(':value', $value);
+
+//     $name = "test";
+//     $value = 000;
+
+//     $stmt->execute();
+
+//     // Get record
+//     $result = $db->query('SELECT * FROM buttons');
+
+//     foreach ($result as $m) {
+//         var_dump($m);
+//     }
+
+//     $db = null;
+// }
+// catch(PDOException $e)
+// {
+//     die($error);
+// }
+
+?>
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
