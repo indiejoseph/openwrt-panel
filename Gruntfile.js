@@ -122,6 +122,12 @@ module.exports = function (grunt) {
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
+    phplint: {
+        options: {
+            swapPath: '.tmp'
+        },
+        all: ['<%= yeoman.app %>/*.php']
+    },
     coffee: {
       dist: {
         files: [{
@@ -182,13 +188,13 @@ module.exports = function (grunt) {
       }
     },
     useminPrepare: {
-      html: '<%= yeoman.app %>/index.html',
+      html: ['<%= yeoman.app %>/index.php', '<%= yeoman.app %>/index.html'],
       options: {
         dest: '<%= yeoman.dist %>'
       }
     },
     usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
+      html: ['<%= yeoman.dist %>/{,*/}*.php', '<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
         dirs: ['<%= yeoman.dist %>']
@@ -258,6 +264,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
+            '*.php',
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
@@ -348,7 +355,8 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin'
+    'usemin',
+    'phplint:all'
   ]);
 
   grunt.registerTask('default', [

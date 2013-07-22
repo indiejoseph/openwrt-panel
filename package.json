@@ -27,7 +27,8 @@
     "matchdep": "~0.1.2",
     "connect-livereload": "~0.2.0",
     "grunt-ngmin": "~0.0.2",
-    "gateway": "~0.1.1"
+    "gateway": "~0.1.1",
+    "grunt-phplint": "*"
   },
   "engines": {
     "node": ">=0.8.0"
