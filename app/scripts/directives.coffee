@@ -1,40 +1,5 @@
 'use strict'
 
-window.backCounter = -1
-window.onpopstate = () ->
-	window.backCounter++
-	# console.log 'pop!!', window.backCounter
-
-### SASS
-.page {
-	position: absolute;
-	width: 100%;
-
-	&.back.in,
-	&.back.out,
-	&.forward.in,
-	&.forward.out {
-		@include transition(all 0.5s ease-out);
-	}
-	&.back.out,
-	&.forward {
-		@include transform(translateX(100%));
-	}
-	&.back.in,
-	&.forward.in {
-		@include transform(translateX(0%));
-	}
-	&.back,
-	&.forward.out {
-		@include transform(translateX(-100%));
-	}
-}
-###
-
-### HTML
-	<div class="container" transition-view in-class="in" out-class="out"></div>
-###
-
 angular.module('openwrtPanelApp.directives', [])
 	.value('transitionEndEvents', [
   		'webkitTransitionEnd'
@@ -43,7 +8,53 @@ angular.module('openwrtPanelApp.directives', [])
   		'otransitionend'
   		'transitionend'
 	])
+	.directive 'cardView', ($http) ->
+
+		{
+			restrict: 'ECA'
+			transclude: true
+			template: '<div class="card"><div class="card-front"><div ng-transclude></div></div><div class="card-back"></div></div>'
+			link: (scope, parentElm, attr) ->
+
+		}
+
 	.directive 'transitionView', ($http, $templateCache, $route, $anchorScroll, $compile, $controller, transitionEndEvents, $location, $window) ->
+		### SASS
+		.page {
+			position: absolute;
+			width: 100%;
+
+			&.back.in,
+			&.back.out,
+			&.forward.in,
+			&.forward.out {
+				@include transition(all 0.5s ease-out);
+			}
+			&.back.out,
+			&.forward {
+				@include transform(translateX(100%));
+			}
+			&.back.in,
+			&.forward.in {
+				@include transform(translateX(0%));
+			}
+			&.back,
+			&.forward.out {
+				@include transform(translateX(-100%));
+			}
+		}
+		###
+
+		### HTML
+			<div class="container" transition-view in-class="in" out-class="out"></div>
+		###
+
+		window.backCounter = -1 if !window.backCounter?
+
+		if !window.onpopstate?
+			window.onpopstate = () ->
+				window.backCounter++
+				# console.log 'pop!!', window.backCounter
 
 		onTransitionEnd = (element, callback) -> element[0].addEventListener(evt, callback) for evt in transitionEndEvents
 

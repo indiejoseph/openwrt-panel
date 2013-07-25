@@ -48,7 +48,7 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
-          '<%= yeoman.app %>/{,*/}*.php',
+          '<%= yeoman.app %>/cgi-bin/*',
           '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
           '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -67,7 +67,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               gateway(__dirname + '/app', {
-                '.php': 'php-cgi'
+                '.lua': '/usr/local/bin/cgilua.fcgi'
               }),
               mountFolder(connect, '.tmp'),
               mountFolder(connect, yeomanConfig.app)
@@ -121,12 +121,6 @@ module.exports = function (grunt) {
         'Gruntfile.js',
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
-    },
-    phplint: {
-        options: {
-            swapPath: '.tmp'
-        },
-        all: ['<%= yeoman.app %>/*.php']
     },
     coffee: {
       dist: {
@@ -188,13 +182,13 @@ module.exports = function (grunt) {
       }
     },
     useminPrepare: {
-      html: ['<%= yeoman.app %>/index.php', '<%= yeoman.app %>/index.html'],
+      html: ['<%= yeoman.app %>/index.html'],
       options: {
         dest: '<%= yeoman.dist %>'
       }
     },
     usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.php', '<%= yeoman.dist %>/{,*/}*.html'],
+      html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
         dirs: ['<%= yeoman.dist %>']
@@ -264,7 +258,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
-            '*.php',
+            'cgi-bin/*',
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{gif,webp}',
@@ -355,8 +349,7 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin',
-    'phplint:all'
+    'usemin'
   ]);
 
   grunt.registerTask('default', [

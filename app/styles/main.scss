@@ -53,42 +53,6 @@
 // @import "foundation/components/tooltips";
 // @import "foundation/components/dropdown";
 
-@font-face {
-	font-family: 'Quicksand';
-	src: url('fonts/quicksand-bold-webfont.eot');
-	src: url('fonts/quicksand-bold-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('fonts/quicksand-bold-webfont.woff') format('woff'),
-		 url('fonts/quicksand-bold-webfont.ttf') format('truetype'),
-		 url('fonts/quicksand-bold-webfont.svg#quicksandbold') format('svg');
-	font-weight: 700;
-	font-style: normal;
-
-}
-
-@font-face {
-	font-family: 'Quicksand';
-	src: url('fonts/quicksand-light-webfont.eot');
-	src: url('fonts/quicksand-light-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('fonts/quicksand-light-webfont.woff') format('woff'),
-		 url('fonts/quicksand-light-webfont.ttf') format('truetype'),
-		 url('fonts/quicksand-light-webfont.svg#quicksandlight') format('svg');
-	font-weight: 300;
-	font-style: normal;
-
-}
-
-@font-face {
-	font-family: 'Quicksand';
-	src: url('fonts/quicksand-regular-webfont.eot');
-	src: url('fonts/quicksand-regular-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('fonts/quicksand-regular-webfont.woff') format('woff'),
-		 url('fonts/quicksand-regular-webfont.ttf') format('truetype'),
-		 url('fonts/quicksand-regular-webfont.svg#quicksandregular') format('svg');
-	font-weight: 400;
-	font-style: normal;
-
-}
-
 html, body {
 	height: 100%;
 }
@@ -99,59 +63,59 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
-.panelWrapper {
+#main {
 	padding-top: 32px;
 	@media only screen and (max-width:"#{$small-screen}") {
 		padding-top: 0;
 	}
-}
-
-#panel {
-	width: 100%;
-	max-width: 480px;
-	margin: 0 auto;
-	position: relative;
-	.container {
+	.page-wrapper {
 		@include perspective(1600px);
 	}
 }
 
-#main {
-	
-}
-
-#options {
-	background: #444;
-}
-
-.page {
+.card {
 	background-color: white;
-	position: absolute;
 	padding: 12px;
+	max-width: 420px;
+	margin: 0 auto;
+	@include box-shadow(8px 0 22px rgba(0,0,0,0.38));
+
+	.card-front {
+
+	}
+	.card-back {
+		background: #444;
+	}
+	// @include transform(rotateY(-180deg));
+	// @include transform(rotateY(0deg));
+	// @include transform(rotateY(180deg));
+}
+.page {
+	position: absolute;
 	width: 100%;
+
 	@include backface-visibility(hidden); // Prevent backface
 	@include transform-style(preserve-3d);
-	@include box-shadow(8px 0 22px rgba(0,0,0,0.38));
 
 	&.back.in,
 	&.back.out,
 	&.forward.in,
 	&.forward.out {
-		@include transition(all 0.5s ease-out);
+		@include transition(all 0.75s ease-out);
 	}
 	/* Out of screen, left side */
 	&.back.out,
 	&.forward {
-		@include transform(rotateY(-180deg));
+		@include transform(translate3d(100%, 0, -250px));
 	}
 	/* On screen */
 	&.back.in,
 	&.forward.in {
-		@include transform(rotateY(0deg));
+		@include transform(translate3d(0, 0, 0));
 	}
 	/* Out of screen, right side */
 	&.back,
 	&.forward.out {
-		@include transform(rotateY(180deg));
+		@include transform(translate3d(-100%, 0, -250px));
 	}
 }
