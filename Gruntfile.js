@@ -67,7 +67,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               gateway(__dirname + '/app', {
-                '.lua': '/usr/local/bin/cgilua.fcgi'
+                '.lua': 'lua'
               }),
               mountFolder(connect, '.tmp'),
               mountFolder(connect, yeomanConfig.app)

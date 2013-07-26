@@ -1,0 +1,56 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', '-g', 'luarocks' ]
+2 info using npm@1.2.18
+3 info using node@v0.10.5
+4 verbose node symlink /usr/bin/node
+5 verbose read json /usr/lib/package.json
+6 verbose read json /usr/lib/package.json
+7 verbose cache add [ 'luarocks', null ]
+8 verbose cache add name=undefined spec="luarocks" args=["luarocks",null]
+9 verbose parsed url { protocol: null,
+9 verbose parsed url   slashes: null,
+9 verbose parsed url   auth: null,
+9 verbose parsed url   host: null,
+9 verbose parsed url   port: null,
+9 verbose parsed url   hostname: null,
+9 verbose parsed url   hash: null,
+9 verbose parsed url   search: null,
+9 verbose parsed url   query: null,
+9 verbose parsed url   pathname: 'luarocks',
+9 verbose parsed url   path: 'luarocks',
+9 verbose parsed url   href: 'luarocks' }
+10 silly lockFile b2578922-luarocks luarocks
+11 verbose lock luarocks /home/joseph/.npm/b2578922-luarocks.lock
+12 silly lockFile b2578922-luarocks luarocks
+13 silly lockFile b2578922-luarocks luarocks
+14 verbose addNamed [ 'luarocks', '' ]
+15 verbose addNamed [ null, '' ]
+16 silly lockFile e8fa2b30-luarocks luarocks@
+17 verbose lock luarocks@ /home/joseph/.npm/e8fa2b30-luarocks.lock
+18 silly addNameRange { name: 'luarocks', range: '', hasData: false }
+19 verbose url raw luarocks
+20 verbose url resolving [ 'https://registry.npmjs.org/', './luarocks' ]
+21 verbose url resolved https://registry.npmjs.org/luarocks
+22 info trying registry request attempt 1 at 01:30:00
+23 http GET https://registry.npmjs.org/luarocks
+24 http 404 https://registry.npmjs.org/luarocks
+25 silly registry.get cb [ 404,
+25 silly registry.get   { server: 'CouchDB/1.3.0 (Erlang OTP/R15B03)',
+25 silly registry.get     date: 'Fri, 26 Jul 2013 17:29:59 GMT',
+25 silly registry.get     'content-type': 'application/json',
+25 silly registry.get     'content-length': '52',
+25 silly registry.get     'cache-control': 'must-revalidate' } ]
+26 silly lockFile e8fa2b30-luarocks luarocks@
+27 silly lockFile e8fa2b30-luarocks luarocks@
+28 error 404 'luarocks' is not in the npm registry.
+28 error 404 You should bug the author to publish it
+28 error 404
+28 error 404 Note that you can also install from a
+28 error 404 tarball, folder, or http url, or git url.
+29 error System Linux 3.8.0-26-generic
+30 error command "/usr/bin/node" "/usr/bin/npm" "install" "-g" "luarocks"
+31 error cwd /home/joseph/Projects/openwrt-panel/app
+32 error node -v v0.10.5
+33 error npm -v 1.2.18
+34 error code E404
+35 verbose exit [ 1, true ]
