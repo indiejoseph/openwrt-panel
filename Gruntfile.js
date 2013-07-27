@@ -1,11 +1,5 @@
 // Generated on 2013-07-18 using generator-angular-foundation 0.0.1
 'use strict';
-var LIVERELOAD_PORT = 35729;
-var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
-var gateway = require('gateway');
-var mountFolder = function (connect, dir) {
-  return connect.static(require('path').resolve(dir));
-};
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -41,63 +35,28 @@ module.exports = function (grunt) {
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
-      },
-      livereload: {
-        options: {
-          livereload: LIVERELOAD_PORT
-        },
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '<%= yeoman.app %>/cgi-bin/*',
-          '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
       }
     },
-    connect: {
-      options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost'
-      },
-      livereload: {
-        options: {
-          middleware: function (connect) {
-            return [
-              lrSnippet,
-              gateway(__dirname + '/app', {
-                '.lua': 'lua'
-              }),
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app)
-            ];
-          }
-        }
-      },
-      test: {
-        options: {
-          middleware: function (connect) {
-            return [
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, 'test')
-            ];
-          }
-        }
-      },
-      dist: {
-        options: {
-          middleware: function (connect) {
-            return [
-              mountFolder(connect, yeomanConfig.dist)
-            ];
-          }
-        }
-      }
+    server: {
+      port: 8080
     },
     open: {
       server: {
-        url: 'http://localhost:<%= connect.options.port %>'
+        url: 'http://localhost:<%= server.port %>'
+      }
+    },
+    parallel: {
+      lua: {
+        options: {
+          stream: true
+        },
+        tasks: [{
+          grunt: true,
+          args: ['open:server', 'watch']
+        }, {
+          cmd: 'lua',
+          args: ['app.lua', 'dev']
+        }]
       }
     },
     clean: {
@@ -320,22 +279,19 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+      return grunt.task.run(['build']);
     }
 
     grunt.task.run([
       'clean:server',
       'concurrent:server',
-      'connect:livereload',
-      'open',
-      'watch'
+      'parallel'
     ]);
   });
 
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
-    'connect:test',
     'karma'
   ]);
 
