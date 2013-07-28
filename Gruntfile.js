@@ -1,6 +1,13 @@
 // Generated on 2013-07-18 using generator-angular-foundation 0.0.1
 'use strict';
 
+var LIVERELOAD_PORT = 35729;
+var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
+var mountFolder = function (connect, dir) {
+  return connect.static(require('path').resolve(dir));
+};
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -35,6 +42,63 @@ module.exports = function (grunt) {
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
+      },
+      livereload: {
+        options: {
+          livereload: LIVERELOAD_PORT
+        },
+        files: [
+          '<%= yeoman.app %>/{,*/}*.html',
+          '{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css',
+          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+        ]
+      }
+    },
+    connect: {
+      options: {
+        port: 9000,
+        hostname: 'localhost'
+      },
+      proxies: [
+        {
+          context: '/api',
+          host: 'localhost',
+          port: 8080,
+          https: false,
+          changeOrigin: false
+        }
+      ],
+      livereload: {
+        options: {
+          middleware: function (connect) {
+            return [
+              proxySnippet,
+              lrSnippet,
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, yeomanConfig.app)
+            ];
+          }
+        }
+      },
+      test: {
+        options: {
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, 'test')
+            ];
+          }
+        }
+      },
+      dist: {
+        options: {
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, 'dist')
+            ];
+          }
+        }
       }
     },
     server: {
@@ -42,21 +106,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%= server.port %>'
-      }
-    },
-    parallel: {
-      lua: {
-        options: {
-          stream: true
-        },
-        tasks: [{
-          grunt: true,
-          args: ['open:server', 'watch']
-        }, {
-          cmd: 'lua',
-          args: ['app.lua', 'dev']
-        }]
+        url: 'http://localhost:<%= connect.options.port %>'
       }
     },
     clean: {
@@ -285,7 +335,10 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',
-      'parallel'
+      'configureProxies',
+      'connect:livereload',
+      'open',
+      'watch'
     ]);
   });
 

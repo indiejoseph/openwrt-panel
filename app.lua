@@ -9,15 +9,8 @@ require "log".setlevel('ALL', 'HTTP')
 
 --require "strict"
 
-local env = _G.arg [1] or 'dev'
 local sched = require "sched"
 local img_path, script_path, style_path = 'dist/images', 'dist/scripts', 'dist/styles'
-
-if env == 'dev' then
-	img_path	= 'app/images'
-	script_path	= '.tmp/scripts'
-	style_path	= '.tmp/styles'
-end
 
 require "tasks/selector".init({service='luasocket'})
 
