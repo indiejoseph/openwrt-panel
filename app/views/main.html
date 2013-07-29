@@ -1,11 +1,16 @@
-<div class="page">
-	<div card-view>
-		<h1>'Allo, 'Allo!</h1>
-		<p>You now have</p>
-		<ul>
-		<li ng-repeat="thing in awesomeThings">{{thing}}</li>
-		</ul>
-		<p>installed.</p>
-		<h3>Enjoy coding! - Yeoman</h3>
+<div class="page main">
+	<div class="card view">
+		<header class="main-header">
+			<h1>Preferences</h1>
+		</header>
+		<hr class="no-margin">
+		<section>
+			<ul class="card-list">
+				<li class="card-row" ng-repeat="card in cards">
+					<h6>{{card.name}}</h6>
+					<small>{{card.inputs.length}} input</small>
+				</li>
+			</ul>
+		</section>
 	</div>
 </div>

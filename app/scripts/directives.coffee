@@ -9,45 +9,27 @@ angular.module('openwrtPanelApp.directives', [])
   		'transitionend'
 	])
 	.directive 'cardView', ($http) ->
-
 		{
 			restrict: 'ECA'
 			transclude: true
-			template: '<div class="card"><div class="card-front"><div ng-transclude></div></div><div class="card-back"></div></div>'
+			scope: 
+				inputs: '@'
+			template: """
+				<div class="card">
+					<div class="card-front">
+						<div ng-transclude></div>
+						<ul class="card-inputs">
+							<li class="card-input" ng-repeat="input in inputs"></li>
+						</ul>
+					</div>
+					<div class="card-back"></div>
+				</div>
+			"""
 			link: (scope, parentElm, attr) ->
 
 		}
 
 	.directive 'transitionView', ($http, $templateCache, $route, $anchorScroll, $compile, $controller, transitionEndEvents, $location, $window) ->
-		### SASS
-		.page {
-			position: absolute;
-			width: 100%;
-
-			&.back.in,
-			&.back.out,
-			&.forward.in,
-			&.forward.out {
-				@include transition(all 0.5s ease-out);
-			}
-			&.back.out,
-			&.forward {
-				@include transform(translateX(100%));
-			}
-			&.back.in,
-			&.forward.in {
-				@include transform(translateX(0%));
-			}
-			&.back,
-			&.forward.out {
-				@include transform(translateX(-100%));
-			}
-		}
-		###
-
-		### HTML
-			<div class="container" transition-view in-class="in" out-class="out"></div>
-		###
 
 		window.backCounter = -1 if !window.backCounter?
 

@@ -64,7 +64,6 @@ body {
 }
 
 #main {
-	padding-top: 32px;
 	@media only screen and (max-width:"#{$small-screen}") {
 		padding-top: 0;
 	}
@@ -72,14 +71,40 @@ body {
 		@include perspective(1600px);
 	}
 }
-
-.card {
+.main {
+	position: relative;
+	.main-header {
+		position: relative;
+		padding: 12px;
+		height: 58px;
+		text-align: center;
+		h1 {
+			color: $primary-color;
+			font-size: emCalc(22px);
+			text-transform: uppercase;
+			margin: 0;
+		}
+	}
+	.card-list {
+		.card-row {
+			border-bottom: 1px solid #eee;
+		}
+		h6 {
+			line-height: 1;
+			margin: 0;
+		}
+	}
+}
+.view {
+	position: relative;
 	background-color: white;
-	padding: 12px;
 	max-width: 420px;
 	margin: 0 auto;
+	min-height: 280px;
 	@include box-shadow(8px 0 22px rgba(0,0,0,0.38));
-
+	z-index: 3;
+}
+.card {
 	.card-front {
 
 	}
@@ -89,6 +114,12 @@ body {
 	// @include transform(rotateY(-180deg));
 	// @include transform(rotateY(0deg));
 	// @include transform(rotateY(180deg));
+}
+.card-list {
+	li {
+		list-style-type: none;
+		padding: 6px 12px;
+	}
 }
 .page {
 	position: absolute;
@@ -106,7 +137,7 @@ body {
 	/* Out of screen, left side */
 	&.back.out,
 	&.forward {
-		@include transform(translate3d(100%, 0, -250px));
+		@include transform(translate3d(100%, 0, 0));
 	}
 	/* On screen */
 	&.back.in,
@@ -116,6 +147,9 @@ body {
 	/* Out of screen, right side */
 	&.back,
 	&.forward.out {
-		@include transform(translate3d(-100%, 0, -250px));
+		@include transform(translate3d(-100%, 0, 0));
 	}
+}
+.no-margin {
+	margin: 0;
 }

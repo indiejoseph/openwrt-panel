@@ -6,8 +6,11 @@ angular.module('openwrtPanelApp', ['openwrtPanelApp.controllers', 'openwrtPanelA
 			.when '/',
 				templateUrl: 'views/main.html',
 				controller: 'MainCtrl'
-			.when '/options',
-				templateUrl: 'views/options.html',
-				controller: 'OptionsCtrl'
+			.when '/card/:cardID',
+				templateUrl: 'views/card.html',
+				controller: 'CardCtrl'
+			.when '/settings',
+				templateUrl: 'views/settings.html',
+				controller: 'SettingCtrl'
 			.otherwise
 				redirectTo: '/'
