@@ -12,6 +12,9 @@
 @import "compass/css3/box-shadow";
 @import "compass/css3/transition";
 @import "compass/css3/transform";
+@import "font-icons";
+
+@include font-icon-family(entypo);
 
 // Import specific parts of Foundation by commenting the import "foundation"
 // and uncommenting what you want below. You must uncomment the following if customizing
@@ -83,6 +86,18 @@ body {
 			font-size: emCalc(22px);
 			text-transform: uppercase;
 			margin: 0;
+		}
+		.create-but {
+			position: absolute;
+			right: 12px;
+			top: 12px;
+			a {
+				display: block;
+				width: 32px;
+				height: 32px;
+				@include font-icon-base(entypo, 2em); 
+    			@extend %entypo-plus-circle;
+			}
 		}
 	}
 	.card-list {

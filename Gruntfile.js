@@ -164,7 +164,7 @@ module.exports = function (grunt) {
         httpGeneratedImagesPath: '/images/generated',
         httpFontsPath: '/styles/fonts',
         relativeAssets: false,
-        require: 'zurb-foundation'
+        require: ['font-icons', 'zurb-foundation']
       },
       dist: {},
       server: {
