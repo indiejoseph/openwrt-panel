@@ -12,5 +12,14 @@ angular.module('openwrtPanelApp', ['openwrtPanelApp.controllers', 'openwrtPanelA
 			.when '/settings',
 				templateUrl: 'views/settings.html',
 				controller: 'SettingCtrl'
+			.when '/create',
+				templateUrl: 'views/create.html',
+				controller: 'CreateCtrl'
 			.otherwise
 				redirectTo: '/'
+	.run ($rootScope, $location) ->
+		$rootScope.previousPage = () ->
+			if window.backCounter? && window.backCounter > 0
+				return window.history.back()
+			else
+				return $location.path '/'

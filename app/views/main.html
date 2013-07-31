@@ -1,17 +1,17 @@
-<div class="page main">
+<div class="page main-page">
 	<div class="card view">
-		<header class="main-header">
+		<header>
 			<h1>Preferences</h1>
-			<div class="right create-but">
-				<a href="#"><!-- Create --></a>
+			<div class="but but-create">
+				<a ng-href="/#/create"><!-- Create --></a>
 			</div>
 		</header>
-		<hr class="no-margin">
+		<hr>
 		<section>
 			<ul class="card-list">
-				<li class="card-row" ng-repeat="card in cards">
+				<li class="card-row" ng-repeat="card in cards" ng-href="/#/card/{{card.id}}">
 					<h6>{{card.name}}</h6>
-					<small>{{card.inputs.length}} input</small>
+					<div class="card-row-badge">{{card.inputs.length}}</div>
 				</li>
 			</ul>
 		</section>
