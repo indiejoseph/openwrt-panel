@@ -1,0 +1,17 @@
+<fieldset>
+	<legend>{{input.name||'Input Name'}}</legend>
+	<div class="input-control">
+		<label for="input-name">Input Name</label>
+		<input type="text" name="name" id="input-name" ng-model="input.name">
+	</div>
+	<div class="input-control">
+		<label for="input-type">Input Type</label>
+		<select name="name" id="input-type" ng-model="input.type">
+				
+		</select>
+	</div>
+	<div class="input-control">
+		<label for="input-name">Input Value</label>
+		<input type="text" name="value" id="input-value" ng-model="input.value" placeholder="0 or 1(Digital), 0~1023(Analog)">
+	</div>
+</fieldset>

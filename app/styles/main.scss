@@ -233,6 +233,10 @@ body {
 			clear: both;
 		}
 	}
+
+	.input-view {
+		border-bottom: 1px solid #eee;
+	}
 }
 .card {
 	.card-front {
@@ -273,4 +277,20 @@ body {
 	&.forward.out {
 		@include transform(translate3d(-100%, 0, 0));
 	}
+}
+.fade-enter,
+.fade-leave {
+	position: relative;
+	overflow: hidden;
+	@include transition(all 0.75s ease-in-out);
+}
+.fade-enter.fade-enter-active, 
+.fade-leave {
+	opacity: 1;
+	height: 255px;
+}
+.fade-leave.fade-leave-active,
+.fade-enter {
+	opacity: 0;
+	height: 0px;
 }
