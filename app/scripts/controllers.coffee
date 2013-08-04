@@ -19,16 +19,22 @@ angular.module('openwrtPanelApp.controllers', [])
 			}
 		]
 	.controller 'CreateCtrl', ($scope) ->
+		$scope.master = {}
+		$scope.types = [
+			{ id: 'button', name: 'Button' }
+			{ id: 'slider', name: 'Slider' }
+			{ id: 'display', name: 'display' }
+		]
 		$scope.inputs = [
 			name: ''
 			value: ''
-			type: 0
+			type: 'button'
 		]
-		$scope.addInput = ->
+		$scope.addInput = (input) ->
 			$scope.inputs.push
 				name: ''
 				value: ''
-				type: 0
+				type: 'button'
 
 	.controller 'CardCtrl', ($scope) ->
 		$scope = {}

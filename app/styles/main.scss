@@ -58,18 +58,15 @@
 // @import "foundation/components/tooltips";
 // @import "foundation/components/dropdown";
 
-html {
-	height: 100%;
+html, body {
+	background: #444;
 }
 
 * { @include user-select(none); }
 input, textarea { @include user-select(text); }
 
 body {
-	background: white url('../images/bg.jpg') 50% 50% no-repeat fixed;
-	background-size: cover;
 	text-rendering: optimizeLegibility;
-	min-height: 100%;
 }
 
 #main {
@@ -128,7 +125,6 @@ body {
 	background-color: white;
 	max-width: 420px;
 	margin: 0 auto;
-	padding-bottom: 12px;
 	min-height: 280px;
 	@include box-shadow(8px 0 22px rgba(0,0,0,0.38));
 	z-index: 3;

@@ -8,10 +8,29 @@
 		</header>
 		<hr>
 		<form>
-			<div ng-repeat="input in inputs" ng-include src="'/views/input.html'" ng-animate="'fade'" class="input-view"></div>
+			<div ng-repeat="input in inputs" ng-animate="'fade'" class="input-view">
+				<form>
+					<fieldset>
+						<legend>{{input.name||'Input Name'}}</legend>
+						<div class="input-control">
+							<label for="input-name">Input Name</label>
+							<input type="text" name="name" id="input-name" ng-model="input.name">
+						</div>
+						<div class="input-control">
+							<label for="input-type">Input Type</label>
+							<select name="name" id="input-type" ng-model="input.type" ng-options="type.id as type.name for type in types">
+							</select>
+						</div>
+						<div class="input-control" ng-show="input.type=='button'">
+							<label for="input-name">Input Value</label>
+							<input type="text" name="value" id="input-value" ng-model="input.value" placeholder="0 or 1(Digital), 0~1023(Analog)">
+						</div>
+					</fieldset>
+				</form>
+			</div>
 		</form>
 		<div class="view-action">
-			<button ng-click="addInput()" class="view-action-but add">Add input</button>
+			<button ng-click="addInput(input)" class="view-action-but add">Add input</button>
 		</div>
 	</div>
 </div>
