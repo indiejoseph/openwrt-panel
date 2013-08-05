@@ -1,32 +1,40 @@
 <div class="page create-page">
 	<div class="view">
 		<header>
-			<h1>Create</h1>
-			<div class="but but-back">
+			<h1>{{card.name}}</h1>
+			<div class="but but-left but-back">
 				<a ng-click="previousPage()"><!-- Create --></a>
+			</div>
+			<div class="but but-right but-ok">
+				<a ng-click="submit()"><!-- OK --></a>
 			</div>
 		</header>
 		<hr>
-		<form>
-			<div ng-repeat="input in inputs" ng-animate="'fade'" class="input-view">
-				<form>
-					<fieldset>
-						<legend>{{input.name||'Input Name'}}</legend>
-						<div class="input-control">
-							<label for="input-name">Input Name</label>
-							<input type="text" name="name" id="input-name" ng-model="input.name">
-						</div>
-						<div class="input-control">
-							<label for="input-type">Input Type</label>
-							<select name="name" id="input-type" ng-model="input.type" ng-options="type.id as type.name for type in types">
-							</select>
-						</div>
-						<div class="input-control" ng-show="input.type=='button'">
-							<label for="input-name">Input Value</label>
-							<input type="text" name="value" id="input-value" ng-model="input.value" placeholder="0 or 1(Digital), 0~1023(Analog)">
-						</div>
-					</fieldset>
-				</form>
+		<form id="card-form" novalidate ng-submit="submit()">
+			<fieldset>
+				<div class="input-control">
+					<label for="card-name">Card Name font <span class="red">*</span></label>
+					<input type="text" name="name" ng-model="card.name">
+				</div>
+			</fieldset>
+			<hr>
+			<div ng-repeat="input in card.inputs" ng-animate="'fade'" class="input-view">
+				<fieldset>
+					<legend>{{input.name||'Input Name'}}</legend>
+					<div class="input-control">
+						<label for="input-name[$index]">Input Name</label>
+						<input type="text" name="name{{$index}}" id="input-name[$index]" ng-model="input.name">
+					</div>
+					<div class="input-control">
+						<label for="input-type[$index]">Input Type</label>
+						<select name="type{{$index}}" id="input-type[$index]" ng-model="input.type" ng-options="type.id as type.name for type in types">
+						</select>
+					</div>
+					<div class="input-control" ng-show="input.type=='button'">
+						<label for="input-name[$index]">Input Value</label>
+						<input type="text" name="value{{$index}}" id="input-value[$index]" ng-model="input.value" placeholder="0 or 1(Digital), 0~1023(Analog)">
+					</div>
+				</fieldset>
 			</div>
 		</form>
 		<div class="view-action">

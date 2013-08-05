@@ -1,6 +1,11 @@
 'use strict'
 
-angular.module('openwrtPanelApp', ['openwrtPanelApp.controllers', 'openwrtPanelApp.directives'])
+angular.module('openwrtPanelApp', [
+	'openwrtPanelApp.controllers',
+	'openwrtPanelApp.directives',
+	'webstorageResource'
+	'webstorage'
+	])
 	.config ($routeProvider) ->
 		$routeProvider
 			.when '/',
@@ -23,3 +28,9 @@ angular.module('openwrtPanelApp', ['openwrtPanelApp.controllers', 'openwrtPanelA
 				return window.history.back()
 			else
 				return $location.path '/'
+	.factory '$cardFactory', ['$webstorageResource', ($webstorageResource) ->
+		Card = $webstorageResource '/api/cards/:id',
+			id: '@id'
+
+		return Card
+	]

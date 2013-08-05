@@ -2,7 +2,7 @@
 	<div class="card view">
 		<header>
 			<h1>Preferences</h1>
-			<div class="but but-create">
+			<div class="but but-right but-create">
 				<a ng-href="/#/create"><!-- Create --></a>
 			</div>
 		</header>
@@ -13,6 +13,7 @@
 					<h6>{{card.name}}</h6>
 					<div class="card-row-badge">{{card.inputs.length}}</div>
 				</li>
+				<li class="empty" ng-show="!cards.length">No input...</li>
 			</ul>
 		</section>
 	</div>

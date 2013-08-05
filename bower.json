@@ -4,7 +4,9 @@
   "dependencies": {
     "jquery": "~1.9.1",
     "foundation": "~4.2.3",
+    "angular-webstorage": "git@github.com:agustinvinao/angular-webstorage.git",
     "angular-unstable": "~1.1.5",
+    "angular-webstorage-resource": "git@github.com:agustinvinao/angularjs-webstorage-resource.git",
     "angular-resource-unstable": "~1.1.5",
     "angular-cookies": "~1.0.7"
   },
