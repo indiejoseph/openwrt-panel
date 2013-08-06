@@ -4,6 +4,8 @@
 --look for packages one folder up.
 package.path = package.path .. ";Lumen/?.lua"
 
+luasql = require "luasql.sqlite3"
+
 require "log".setlevel('ALL', 'HTTP')
 --require "log".setlevel('ALL')
 
@@ -16,7 +18,8 @@ require "tasks/selector".init({service='luasocket'})
 
 local http_server = require "tasks/http-server"
 
-http_server.serve_static_content_from_ram('/', 'app')
+http_server.serve_static_content_from_ram('/', 'dist')
+
 if service=='nixio' then
 	http_server.serve_static_content_from_stream('/images/', img_path)
 	http_server.serve_static_content_from_stream('/scripts/', script_path)
@@ -57,6 +60,17 @@ http_server.set_websocket_protocol('lumen-shell-protocol', function(ws)
 			end
 		end
 	end)
+end)
+
+--/api/cards GET
+http_server.set_request_handler('GET', '/api/cards', function(path, http_params, http_header)
+
+	return 200
+end)
+
+--/api/cards POST
+http_server.set_request_handler('POST', '/api/cards', function(path, http_params, http_header)
+	return 200
 end)
 
 local conf = {

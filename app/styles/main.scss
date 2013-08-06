@@ -165,7 +165,7 @@ body {
 			a {
 				@extend %entypo-plus-circle;
 				@include rotate(0deg);
-				&:hover {
+				&:hover, &:active {
 					@include rotate(90deg);
 				}
 			}
@@ -175,7 +175,7 @@ body {
 			left: 12px;
 			a {
 				@extend %entypo-left-open;
-				&:hover {
+				&:hover, &:active {
 					@include translateX(-3px);
 				}
 			}
@@ -185,7 +185,7 @@ body {
 			right: 12px;
 			a {
 				@extend %entypo-ok;
-				&:hover {
+				&:hover, &:active {
 					@include scale(1.1);
 				}
 			}
@@ -240,7 +240,7 @@ body {
 			float: left;
 		}
 		label {
-			color: $primary-color;
+			color: $secondary-color;
 			margin-bottom: 6px;
 		}
 		.input-control {
