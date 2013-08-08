@@ -64,12 +64,17 @@ end)
 
 --/api/cards GET
 http_server.set_request_handler('GET', '/api/cards', function(path, http_params, http_header)
+	env = assert (luasql.sqlite3())
+	conn = assert (env:connect("cards.sqlite"))
 
 	return 200
 end)
 
 --/api/cards POST
 http_server.set_request_handler('POST', '/api/cards', function(path, http_params, http_header)
+	env = assert (luasql.sqlite3())
+	conn = assert (env:connect("cards.sqlite"))
+	
 	return 200
 end)
 
