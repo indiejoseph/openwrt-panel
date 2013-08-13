@@ -122,7 +122,6 @@ http_server.set_request_handler('POST', '/api/cards', function(method, path, htt
 			local name, inputs={}
 			if card['name']~=nil then
 				name=card['name']
-				print(name)
 			end
 		end
 	end
