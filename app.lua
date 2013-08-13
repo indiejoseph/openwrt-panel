@@ -4,7 +4,7 @@
 --look for packages one folder up.
 package.path = package.path .. ";Lumen/?.lua"
 
-luasql = require "luasql.sqlite3"
+luasql = require 'luasql.sqlite3'
 
 require "log".setlevel('ALL', 'HTTP')
 --require "log".setlevel('ALL')
@@ -87,16 +87,16 @@ http_server.set_websocket_protocol('lumen-shell-protocol', function(ws)
 end)
 
 --/api/cards GET
-http_server.set_request_handler('GET', '/api/cards', function(path, http_params, http_header)
+http_server.set_request_handler('GET', '/api/cards', function(method, path, http_params, http_header)
 	local cards = {}
 	local env = assert (luasql.sqlite3())
-	local conn = assert (env:connect("db/openwrt.db"))
+	local conn = assert (env:connect('db/openwrt.db'))
 
-	local cur = assert(conn:execute("SELECT * FROM cards"))
+	local cur = assert(conn:execute('SELECT * FROM cards'))
 	local row = cur:fetch({})
 
 	while row do
-		card = { ["id"] = row[1], ["name"] = row[2] }
+		card = { ['id'] = row[1], ['name'] = row[2] }
 		table.insert(cards, card)
 		row = cur:fetch(row)
 	end
@@ -111,11 +111,22 @@ http_server.set_request_handler('GET', '/api/cards', function(path, http_params,
 end)
 
 --/api/cards POST
-http_server.set_request_handler('POST', '/api/cards', function(path, http_params, http_header)
+http_server.set_request_handler('POST', '/api/cards', function(method, path, http_params, http_header)
 
 	local env = assert (luasql.sqlite3())
-	local conn = assert (env:connect("db/openwrt.db"))
-
+	local conn = assert (env:connect('db/openwrt.db'))
+	
+	if http_params['cards']~=nil then
+		local cards=http_params['cards']
+		for i,card in pairs(cards) do
+			local name, inputs={}
+			if card['name']~=nil then
+				name=card['name']
+				print(name)
+			end
+		end
+	end
+	
 	conn:close()
 	env:close()
 	
@@ -123,10 +134,10 @@ http_server.set_request_handler('POST', '/api/cards', function(path, http_params
 end)
 
 --/api/cards PUT
-http_server.set_request_handler('PUT', '/api/cards', function(path, http_params, http_header)
+http_server.set_request_handler('PUT', '/api/cards', function(method, path, http_params, http_header)
 
 	local env = assert (luasql.sqlite3())
-	local conn = assert (env:connect("db/openwrt.db"))
+	local conn = assert (env:connect('db/openwrt.db'))
 
 	conn:close()
 	env:close()
@@ -135,10 +146,10 @@ http_server.set_request_handler('PUT', '/api/cards', function(path, http_params,
 end)
 
 --/api/cards DELETE
-http_server.set_request_handler('DELETE', '/api/cards', function(path, http_params, http_header)
+http_server.set_request_handler('DELETE', '/api/cards', function(method, path, http_params, http_header)
 
 	local env = assert (luasql.sqlite3())
-	local conn = assert (env:connect("db/openwrt.db"))
+	local conn = assert (env:connect('db/openwrt.db'))
 
 	conn:close()
 	env:close()
@@ -148,12 +159,12 @@ end)
 
 -- Initialize database
 env = assert (luasql.sqlite3())
-conn = assert (env:connect("db/openwrt.db"))
-assert(conn:execute("PRAGMA foreign_keys = ON"))
-assert(conn:execute("CREATE TABLE IF NOT EXISTS cards( id INTEGER UNIQUE NOT NULL PRIMARY KEY, name VARCHAR(32) NOT NULL )"))
-assert(conn:execute("CREATE TABLE IF NOT EXISTS inputs(	id INTEGER UNIQUE NOT NULL PRIMARY KEY,	name VARCHAR(32) NOT NULL, type VARCHAR(12) NOT NULL, value BLOB NOT NULL, card_id INTEGER NOT NULL, FOREIGN KEY(card_id) REFERENCES cards(id) )"))
--- assert(conn:execute("INSERT INTO cards VALUES (NULL, 'Demo 1')"))
--- assert(conn:execute("INSERT INTO cards VALUES (NULL, 'Demo 2')"))
+conn = assert (env:connect('db/openwrt.db'))
+assert(conn:execute('PRAGMA foreign_keys = ON'))
+assert(conn:execute('CREATE TABLE IF NOT EXISTS cards( id INTEGER UNIQUE NOT NULL PRIMARY KEY, name VARCHAR(32) NOT NULL )'))
+assert(conn:execute('CREATE TABLE IF NOT EXISTS inputs(	id INTEGER UNIQUE NOT NULL PRIMARY KEY,	name VARCHAR(32) NOT NULL, type VARCHAR(12) NOT NULL, value BLOB NOT NULL, card_id INTEGER NOT NULL, FOREIGN KEY(card_id) REFERENCES cards(id) )'))
+-- assert(conn:execute('INSERT INTO cards VALUES (NULL, 'Demo 1')'))
+-- assert(conn:execute('INSERT INTO cards VALUES (NULL, 'Demo 2')'))
 conn:close()
 env:close()
 
